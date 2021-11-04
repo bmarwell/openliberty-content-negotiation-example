@@ -17,6 +17,7 @@ public class AgentProducer implements Serializable {
   @Default
   public Agent getAgent() {
     final String userAgentHeader = httpHeaders.getHeaderString(HttpHeaders.USER_AGENT);
+
     return Agents.parse(userAgentHeader);
   }
 

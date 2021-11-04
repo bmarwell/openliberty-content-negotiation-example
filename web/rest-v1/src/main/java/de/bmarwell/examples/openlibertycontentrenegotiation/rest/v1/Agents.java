@@ -31,6 +31,10 @@ public enum Agents implements Agent {
   }
 
   public static Agents parse(String userAgent) {
+    if (userAgent == null) {
+      return GENERIC;
+    }
+    
     Matcher matcher = TOOL_REGEX.matcher(userAgent);
     String name = (matcher.matches()) ? matcher.group(1) : null;
 
