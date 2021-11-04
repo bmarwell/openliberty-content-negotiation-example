@@ -1,6 +1,6 @@
 = OpenLiberty Content Negotiation Example
 :icons: font
-:toc:
+:toc: macro
 
 https://github.com/bmarwell/openliberty-content-negotiation-example/actions/workflows/maven.yaml[image:https://github.com/bmarwell/openliberty-content-negotiation-example/actions/workflows/maven.yaml/badge.svg[Maven
 CI]]
@@ -8,10 +8,11 @@ https://opensource.org/licenses/Apache-2.0[image:https://img.shields.io/badge/Li
 https://renovatebot.com[image:https://img.shields.io/badge/renovate-enabled-brightgreen.svg[Renovate]]
 link:https://openliberty.io/[image:https://img.shields.io/badge/AppServer-Open%20Liberty-blue[AppServer]]
 
-
 This is a port of link:https://github.com/diceroll-dev/dice-parser[Brian's Dice Parser] using link:https://github.com/oktadev/quarkus-content-negotiation-example[Quarkus with Content negotiation example] to link:https://openliberty.io/[OpenLiberty], using a lot more CDI (just for the fun).
 
 This example runs only at Java 15, because IBM still has not published Java 16 or 17 images with OpenLiberty (as of 2021-11-04).
+
+toc::[]
 
 == Differences from Brian's API
 
