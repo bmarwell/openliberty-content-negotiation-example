@@ -1,8 +1,12 @@
 = OpenLiberty Content Negotiation Example
+:icons: font
+:toc:
 
 https://github.com/bmarwell/openliberty-content-negotiation-example/actions/workflows/maven.yaml[image:https://github.com/bmarwell/openliberty-content-negotiation-example/actions/workflows/maven.yaml/badge.svg[Maven
 CI]]
 https://opensource.org/licenses/Apache-2.0[image:https://img.shields.io/badge/License-Apache_2.0-blue.svg[License]]
+https://renovatebot.com[image:https://img.shields.io/badge/renovate-enabled-brightgreen.svg[Renovate]]
+link:https://openliberty.io/[image:https://img.shields.io/badge/AppServer-Open%20Liberty-blue[AppServer]]
 
 
 This is a port of link:https://github.com/diceroll-dev/dice-parser[Brian's Dice Parser] using link:https://github.com/oktadev/quarkus-content-negotiation-example[Quarkus with Content negotiation example] to link:https://openliberty.io/[OpenLiberty], using a lot more CDI (just for the fun).
@@ -16,6 +20,22 @@ Just for the fun of it, and because JSON is derived from JavaScript, I did set t
 The output will have `under_scores` in field names instead of `lowerCamelCase` (as derived from Java getter methods).
 
 As already mentioned, most classes were converted to interfaces and CDI beans.
+
+== How to build
+
+Quick build with all checks:
+
+[source,bash]
+----
+./mvnw verify
+----
+
+Build docker image:
+
+[source,bash]
+----
+./mvnw package -Pdockerize
+----
 
 == What does this example show?
 
