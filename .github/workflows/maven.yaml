@@ -1,0 +1,74 @@
+name: Maven CI
+
+on:
+  workflow_dispatch: { }
+  push:
+    branches: [ ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: 16
+          distribution: adopt-openj9
+
+      - name: Build with Maven
+        run: mvn --show-version --errors --batch-mode --no-transfer-progress verify -Pdocs
+
+  build-all:
+    needs: build
+
+    strategy:
+      fail-fast: true
+
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        java:
+          # 17 (16 fallback)
+          - version: 17
+            dist: temurin
+          - version: 16
+            dist: adopt-openj9
+          - version: 17
+            dist: zulu
+        exclude:
+          # was already built
+          - os: ubuntu-latest
+            java:
+              version: 16
+              dist: adopt-openj9
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up cache for ~./m2/repository
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.m2/repository
+            !~/.m2/repository/de/bmarwell/examples/openlibertycontentrenegotiation
+          key: maven-${{ matrix.os }}-java${{ matrix.java }}-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            maven-${{ matrix.os }}-java${{ matrix.java }}-
+            maven-${{ matrix.os }}-
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ matrix.java.version }}
+          distribution: ${{ matrix.java.dist }}
+
+      - name: Build with Maven
+        run: mvn --show-version --errors --batch-mode --no-transfer-progress verify -Pdocs
