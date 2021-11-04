@@ -15,6 +15,7 @@
     <maven.compiler.release>16</maven.compiler.release>
     <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
+    <plugin.forbiddenapis.failOnViolation>true</plugin.forbiddenapis.failOnViolation>
 
     <!-- JavaEE and MicroProfile -->
     <dependency.jaxrs.version>2.1.6</dependency.jaxrs.version>
@@ -156,8 +157,43 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.1.2</version>
         </plugin>
+
+        <!-- 3rd party plugins -->
+        <plugin>
+          <groupId>de.thetaphi</groupId>
+          <artifactId>forbiddenapis</artifactId>
+          <version>3.2</version>
+        </plugin>
       </plugins>
     </pluginManagement>
+
+    <!-- forced plugin invocation -->
+    <plugins>
+      <plugin>
+        <groupId>de.thetaphi</groupId>
+        <artifactId>forbiddenapis</artifactId>
+        <executions>
+          <execution>
+            <id>default-check</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <configuration>
+              <failOnViolation>${plugin.forbiddenapis.failOnViolation}</failOnViolation>
+              <bundledSignatures>
+                <bundledSignature>jdk-unsafe</bundledSignature>
+                <bundledSignature>jdk-deprecated</bundledSignature>
+                <bundledSignature>jdk-non-portable</bundledSignature>
+                <bundledSignature>jdk-reflection</bundledSignature>
+                <bundledSignature>jdk-internal</bundledSignature>
+                <bundledSignature>jdk-system-out</bundledSignature>
+              </bundledSignatures>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
   
   <modules>
