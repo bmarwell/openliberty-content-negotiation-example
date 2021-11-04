@@ -23,7 +23,7 @@ jobs:
           distribution: adopt-openj9
 
       - name: Build with Maven
-        run: mvn --show-version --errors --batch-mode --no-transfer-progress verify -Pdocs
+        run: mvn --show-version --errors --batch-mode --no-transfer-progress verify -Pdocs,dockerize
 
   build-all:
     needs: build
