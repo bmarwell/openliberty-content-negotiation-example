@@ -13,38 +13,40 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class GetHelpIT extends AbstraceRestIT {
+public class RollDiceIT extends AbstraceRestIT {
 
   private static Stream<Arguments> ua_locale_provider() {
     return Stream.of(
-        Arguments.of("curl/7.37.0", "de", List.of("Willkommen", "curl ")),
-        Arguments.of("HTTPie/2.0.0", "de", List.of("Willkommen", "http ")),
-        Arguments.of("curl/7.37.0", "en", List.of("Welcome", "curl ")),
-        Arguments.of("HTTPie/1.0.0", "en", List.of("Welcome", "http "))
+        Arguments.of("2d6", MediaType.APPLICATION_JSON_TYPE,
+            List.of("\"number_of_dice\": 2,", "\"number_of_faces\": 6")),
+        Arguments.of("2d6", MediaType.TEXT_PLAIN_TYPE,
+            List.of("2d6 = ", "--d6 ="))
     );
   }
 
   @ParameterizedTest
   @MethodSource("ua_locale_provider")
-  public void get_help_ua_locale(
-      String userAgent,
-      String locale,
+  public void roll_dice_accept(
+      String diceExpression,
+      MediaType acceptType,
       List<String> expectedResponseSnippets) {
     // given
-    final WebTarget webTarget = client.target(getBaseUri()).path("/");
+    final WebTarget webTarget = client.target(getBaseUri()).path("/roll");
 
     // when
     final Response response = webTarget
-        .request(MediaType.TEXT_PLAIN_TYPE)
-        .header(HttpHeaders.USER_AGENT, userAgent)
-        .header(HttpHeaders.ACCEPT_LANGUAGE, locale)
+        .queryParam("dice", diceExpression)
+        .request(acceptType)
         .get();
 
     // then
     assertThat(response)
         .matches(
             response1 -> response1.getStatus() == 200,
-            "expected rc 200 but got: " + response.getStatus() + ".");
+            "expected rc 200 but got: " + response.getStatus() + ".")
+        .matches(response1 -> response1.getHeaderString(HttpHeaders.CONTENT_TYPE)
+            .startsWith(acceptType.toString()))
+    ;
 
     final String responseString = response.readEntity(String.class);
 
