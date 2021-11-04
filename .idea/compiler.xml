@@ -8,16 +8,17 @@
         <outputRelativeToContentRoot value="true" />
         <module name="olcr-its-openliberty" />
         <module name="olcr-web-restv1" />
+        <module name="olcr-app-ol-docker" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="olcr-its-openliberty" target="16" />
-      <module name="olcr-web-restv1" target="16" />
-      <module name="openliberty-content-negotiation-example" target="16" />
+      <module name="openliberty-content-negotiation-example" target="15" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="olcr-app-ol-docker" options="-Xlint:all" />
+      <module name="olcr-dist-oldocker" options="-Xlint:all" />
       <module name="olcr-its-openliberty" options="-Xlint:all" />
       <module name="olcr-web-restv1" options="-Xlint:all" />
     </option>
