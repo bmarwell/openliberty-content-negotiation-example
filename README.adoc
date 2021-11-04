@@ -23,14 +23,23 @@ As already mentioned, most classes were converted to interfaces and CDI beans.
 
 == How to build
 
-Quick build with all checks:
+=== Environment
+
+Make sure your java version is recent enough.
+
+[source,bash]
+----
+sdk env
+----
+
+=== Quick build with all checks
 
 [source,bash]
 ----
 ./mvnw verify
 ----
 
-Build docker image:
+=== Build docker image
 
 [source,bash]
 ----
@@ -38,6 +47,8 @@ Build docker image:
 ----
 
 == What does this example show?
+
+=== OpenLiberty features
 
 * Jax-RS 2.1, CDI 2.0 on OpenLiberty
 * Some OpenLiberty features, like
