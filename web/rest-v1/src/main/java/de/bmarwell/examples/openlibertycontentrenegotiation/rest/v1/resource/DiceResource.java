@@ -4,6 +4,7 @@ import static dev.diceroll.parser.Dice.detailedRoll;
 
 import dev.diceroll.parser.ParseException;
 import dev.diceroll.parser.ResultTree;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
@@ -20,6 +21,9 @@ import javax.ws.rs.core.Variant;
 @Path("/roll")
 @ApplicationScoped
 public class DiceResource implements Serializable {
+
+  @Serial
+  private static final long serialVersionUID = 8457184509620558191L;
 
   @GET
   public ResultTree rollObject(@QueryParam("dice") String dice) throws ParseException {
