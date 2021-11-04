@@ -14,6 +14,7 @@
   <properties>
     <app.filename>olcr-web-restv1-${project.version}.war</app.filename>
     <app.context.root>/</app.context.root>
+    <docker.context.directory>${basedir}/target/dockerfiles</docker.context.directory>
   </properties>
 
   <artifactId>olcr-app-ol-docker</artifactId>
@@ -42,7 +43,7 @@
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${basedir}/target/docker</outputDirectory>
+              <outputDirectory>${docker.context.directory}</outputDirectory>
               <resources>
                 <resource>
                   <directory>src/main/docker</directory>
@@ -59,13 +60,13 @@
         <executions>
           <execution>
             <id>copy-war</id>
-            <phase>process-resources</phase>
+            <phase>process-sources</phase>
             <goals>
               <goal>copy-dependencies</goal>
             </goals>
             <configuration>
               <includeTypes>war</includeTypes>
-              <outputDirectory>${basedir}/target/docker</outputDirectory>
+              <outputDirectory>${docker.context.directory}</outputDirectory>
             </configuration>
 
           </execution>
@@ -83,7 +84,7 @@
               <goal>tag</goal>
             </goals>
             <configuration>
-              <contextDirectory>${basedir}/target/docker</contextDirectory>
+              <contextDirectory>${docker.context.directory}</contextDirectory>
               <repository>${project.groupId}/${project.artifactId}</repository>
               <tag>${project.version}</tag>
               <buildArgs>
