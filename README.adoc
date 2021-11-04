@@ -1,0 +1,3 @@
+= OpenLiberty Content Negotiation Example
+
+OpenLiberty Content Negotiation Example

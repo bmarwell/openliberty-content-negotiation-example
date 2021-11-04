@@ -13,7 +13,97 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>11</maven.compiler.release>
+
+    <!-- JavaEE and MicroProfile -->
+    <dependency.jaxrs.version>2.1.6</dependency.jaxrs.version>
+    <dependency.cdi.version>2.0</dependency.cdi.version>
+
+    <!-- 3rd party -->
+    <dependency.dicerollparser.version>0.1.0</dependency.dicerollparser.version>
+
+    <!-- unit testing -->
+    <dependency.junit-jupiter.version>5.8.1</dependency.junit-jupiter.version>
+    <dependency.assertj.version>3.21.0</dependency.assertj.version>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- JavaEE and MicroProfile -->
+      <dependency>
+        <groupId>jakarta.ws.rs</groupId>
+        <artifactId>jakarta.ws.rs-api</artifactId>
+        <version>${dependency.jaxrs.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.enterprise</groupId>
+        <artifactId>cdi-api</artifactId>
+        <version>${dependency.cdi.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>jakarta.servlet</groupId>
+        <artifactId>jakarta.servlet-api</artifactId>
+        <version>4.0.4</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <!-- 3rd party -->
+      <dependency>
+        <groupId>dev.diceroll</groupId>
+        <artifactId>dice-parser</artifactId>
+        <version>${dependency.dicerollparser.version}</version>
+      </dependency>
+
+      <!-- unit testing -->
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${dependency.junit-jupiter.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>${dependency.assertj.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>3.12.4</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <!-- forced dependencies -->
+  <dependencies>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
   <build>
     <pluginManagement>
@@ -39,6 +129,11 @@
           <version>3.0.2</version>
         </plugin>
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.3.1</version>
+        </plugin>
+        <plugin>
           <artifactId>maven-install-plugin</artifactId>
           <version>2.5.2</version>
         </plugin>
@@ -60,5 +155,6 @@
   
   <modules>
     <module>web/rest-v1</module>
+    <module>integration-tests/openliberty</module>
   </modules>
 </project>

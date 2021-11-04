@@ -5,13 +5,40 @@
     <artifactId>olcr-root</artifactId>
     <groupId>de.bmarwell.examples.openlibertycontentrenegotiation</groupId>
     <version>1.0.0-SNAPSHOT</version>
-    <relativePath>../../pom.xml</relativePath>  
+    <relativePath>../../pom.xml</relativePath>
   </parent>
 
-  <groupId>de.bmarwell.examples.openlibertycontentrenegotiation</groupId>
   <artifactId>olcr-web-restv1</artifactId>
   <version>1.0.0-SNAPSHOT</version>
+  <packaging>war</packaging>
 
   <name>olcr :: web :: restv1</name>
+
+  <dependencies>
+    <!-- JavaEE and MicroProfile -->
+    <dependency>
+      <groupId>jakarta.ws.rs</groupId>
+      <artifactId>jakarta.ws.rs-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.enterprise</groupId>
+      <artifactId>cdi-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- 3rd party -->
+    <dependency>
+      <groupId>dev.diceroll</groupId>
+      <artifactId>dice-parser</artifactId>
+    </dependency>
+  </dependencies>
 
 </project>
