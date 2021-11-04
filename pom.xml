@@ -16,7 +16,7 @@
 
     <!-- JavaEE and MicroProfile -->
     <dependency.jaxrs.version>2.1.6</dependency.jaxrs.version>
-    <dependency.cdi.version>2.0</dependency.cdi.version>
+    <dependency.cdi.version>2.0-PFD2</dependency.cdi.version>
 
     <!-- 3rd party -->
     <dependency.dicerollparser.version>0.1.0</dependency.dicerollparser.version>
