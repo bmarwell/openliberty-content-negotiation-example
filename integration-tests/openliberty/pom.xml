@@ -15,5 +15,101 @@
   <version>1.0.0-SNAPSHOT</version>
   <name>oclr :: ITs :: OpenLiberty</name>
 
+  <properties>
+    <liberty.var.default.http.port>9080</liberty.var.default.http.port>
+    <liberty.var.default.https.port>9443</liberty.var.default.https.port>
+    <liberty.var.app.filename>olcr-web-restv1-${project.version}</liberty.var.app.filename>
+    <liberty.var.app.context.root>/</liberty.var.app.context.root>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>de.bmarwell.examples.openlibertycontentrenegotiation</groupId>
+      <artifactId>olcr-web-restv1</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <type>war</type>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-rs-client</artifactId>
+      <version>3.4.5</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.johnzon</groupId>
+      <artifactId>johnzon-jsonb</artifactId>
+      <version>1.2.14</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.json.bind</groupId>
+      <artifactId>javax.json.bind-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.openliberty.tools</groupId>
+        <artifactId>liberty-maven-plugin</artifactId>
+        <version>3.3.4</version>
+        <configuration>
+          <serverName>diceroll</serverName>
+          <features>
+            <acceptLicense>true</acceptLicense>
+          </features>
+          <deployPackages>dependencies</deployPackages>
+        </configuration>
+        <executions>
+          <execution>
+            <id>test-start</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>create</goal>
+              <goal>deploy</goal>
+              <goal>install-feature</goal>
+              <goal>start</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>test-stop</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <configuration>
+          <systemPropertyVariables>
+            <http.port>${liberty.var.default.http.port}</http.port>
+            <https.port>${liberty.var.default.https.port}</https.port>
+            <war.name>${liberty.var.app.context.root}</war.name>
+            <app.context.root>${liberty.var.app.context.root}</app.context.root>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>jdk16</id>
+      <activation>
+        <jdk>[16,)</jdk>
+      </activation>
+      <properties>
+        <surefire.argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opensjava.base/java.net=ALL-UNNAMED</surefire.argLine>
+        <failsafe.argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opensjava.base/java.net=ALL-UNNAMED</failsafe.argLine>
+      </properties>
+    </profile>
+  </profiles>
 
 </project>

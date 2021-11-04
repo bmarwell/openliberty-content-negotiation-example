@@ -9,10 +9,12 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class UserAgentFilter implements ContainerRequestFilter {
 
-  final private static String LANG = "UserAgentFilter.agent";
+  public static final ThreadLocal<String> userAgent = new ThreadLocal<>();
 
   @Override
   public void filter(ContainerRequestContext requestContext) throws IOException {
-    requestContext.getHeaderString(HttpHeaders.USER_AGENT);
+    final String headerString = requestContext.getHeaderString(HttpHeaders.USER_AGENT);
+
+    userAgent.set(headerString);
   }
 }

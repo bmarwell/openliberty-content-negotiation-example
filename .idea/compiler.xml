@@ -16,4 +16,10 @@
       <module name="openliberty-content-negotiation-example" target="16" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="olcr-its-openliberty" options="-Xlint:all" />
+      <module name="olcr-web-restv1" options="-Xlint:all" />
+    </option>
+  </component>
 </project>

@@ -17,9 +17,15 @@
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <plugin.forbiddenapis.failOnViolation>true</plugin.forbiddenapis.failOnViolation>
 
+    <!--suppress CheckTagEmptyBody -->
+    <surefire.argLine></surefire.argLine>
+    <!--suppress CheckTagEmptyBody -->
+    <failsafe.argLine></failsafe.argLine>
+
     <!-- JavaEE and MicroProfile -->
     <dependency.jaxrs.version>2.1.6</dependency.jaxrs.version>
     <dependency.cdi.version>2.0.2</dependency.cdi.version>
+    <dependency.json.bind-api.version>1.0</dependency.json.bind-api.version>
 
     <!-- 3rd party -->
     <dependency.dicerollparser.version>0.1.0</dependency.dicerollparser.version>
@@ -50,6 +56,13 @@
         <groupId>jakarta.servlet</groupId>
         <artifactId>jakarta.servlet-api</artifactId>
         <version>4.0.4</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.json.bind</groupId>
+        <artifactId>javax.json.bind-api</artifactId>
+        <version>${dependency.json.bind-api.version}</version>
         <scope>provided</scope>
       </dependency>
 
@@ -98,6 +111,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
     </dependency>
@@ -130,6 +148,10 @@
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-failsafe-plugin</artifactId>
           <version>2.22.2</version>
         </plugin>
         <plugin>
@@ -169,6 +191,25 @@
 
     <!-- forced plugin invocation -->
     <plugins>
+      <plugin>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.22.2</version>
+        <configuration>
+          <includes>
+            <include>**/*IT.java</include>
+            <argLine>${failsafe.argLine}</argLine>
+          </includes>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <groupId>de.thetaphi</groupId>
         <artifactId>forbiddenapis</artifactId>
