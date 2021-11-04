@@ -18,7 +18,7 @@
     <plugin.forbiddenapis.failOnViolation>true</plugin.forbiddenapis.failOnViolation>
 
     <!-- JavaEE and MicroProfile -->
-    <dependency.jaxrs.version>2.1.6</dependency.jaxrs.version>
+    <dependency.jaxrs.version>3.0.0</dependency.jaxrs.version>
     <dependency.cdi.version>2.0.2</dependency.cdi.version>
 
     <!-- 3rd party -->
