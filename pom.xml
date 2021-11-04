@@ -186,6 +186,11 @@
           <artifactId>forbiddenapis</artifactId>
           <version>3.2</version>
         </plugin>
+        <plugin>
+          <groupId>com.spotify</groupId>
+          <artifactId>dockerfile-maven-plugin</artifactId>
+          <version>1.4.13</version>
+        </plugin>
       </plugins>
     </pluginManagement>
 
@@ -236,9 +241,18 @@
       </plugin>
     </plugins>
   </build>
-  
+
   <modules>
     <module>web/rest-v1</module>
     <module>integration-tests/openliberty</module>
   </modules>
+
+  <profiles>
+    <profile>
+      <id>dockerize</id>
+      <modules>
+        <module>app/openliberty/docker</module>
+      </modules>
+    </profile>
+  </profiles>
 </project>
