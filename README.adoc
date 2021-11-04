@@ -1,3 +1,47 @@
 = OpenLiberty Content Negotiation Example
 
-OpenLiberty Content Negotiation Example
+https://github.com/bmarwell/openliberty-content-negotiation-example/actions/workflows/maven.yaml[image:https://github.com/bmarwell/openliberty-content-negotiation-example/actions/workflows/maven.yaml/badge.svg[Maven
+CI]]
+https://opensource.org/licenses/Apache-2.0[image:https://img.shields.io/badge/License-Apache_2.0-blue.svg[License]]
+
+
+This is a port of link:https://github.com/diceroll-dev/dice-parser[Brian's Dice Parser] using link:https://github.com/oktadev/quarkus-content-negotiation-example[Quarkus with Content negotiation example] to link:https://openliberty.io/[OpenLiberty], using a lot more CDI (just for the fun).
+
+This example runs only at Java 15, because IBM still has not published Java 16 or 17 images with OpenLiberty (as of 2021-11-04).
+
+== Differences from Brian's API
+
+Just for the fun of it, and because JSON is derived from JavaScript, I did set the config option `PropertyNamingStrategy.LOWER_CASE_WITH_UNDERSCORES`.
+
+The output will have `under_scores` in field names instead of `lowerCamelCase` (as derived from Java getter methods).
+
+As already mentioned, most classes were converted to interfaces and CDI beans.
+
+== What does this example show?
+
+* Jax-RS 2.1, CDI 2.0 on OpenLiberty
+* Some OpenLiberty features, like
+** TLS1.3 over http/2
+** disabling CDI implicit bean archives
+** skipping META-INF processing and
+** the easiness of using features
+
+As well as
+
+* Using the `liberty-maven-plugin` for integration testing
+* Using link:https://github.com/spotify/dockerfile-maven[Spotify's dockerfile-maven-plugin] for building Docker images
+* Using a shared class cache with OpenJ9 for insane startup times!
+
+=== Startup time
+
+Some classes are pre-compiled using OpenJ9‘s AOT compiler.
+The files are then saved to a shared class cache file.
+This way, Java does not need to compile the files again on every startup.
+
+[source]
+----
+$ docker run -p 9080:9080 de.bmarwell.examples.openlibertycontentrenegotiation/olcr-app-ol-docker:1.0.0-SNAPSHOT
+
+[…]
+[2021-11-04T20:00:31.258+0000] 00000034 id=         com.ibm.ws.app.manager.AppMessageHelper                      A CWWKZ0001I: Application olcr-web-restv1-1.0.0-SNAPSHOT started in 0.526 seconds.
+----
