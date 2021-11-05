@@ -33,6 +33,10 @@
     <!-- unit testing -->
     <dependency.junit-jupiter.version>5.8.1</dependency.junit-jupiter.version>
     <dependency.assertj.version>3.21.0</dependency.assertj.version>
+
+    <!-- plugin versions -->
+    <plugin.dockerfile-maven.version>1.4.13</plugin.dockerfile-maven.version>
+    <extension.dockerfile-maven.version>${plugin.dockerfile-maven.version}</extension.dockerfile-maven.version>
   </properties>
 
   <dependencyManagement>
@@ -127,6 +131,14 @@
   </dependencies>
 
   <build>
+    <extensions>
+      <extension>
+        <groupId>com.spotify</groupId>
+        <artifactId>dockerfile-maven-extension</artifactId>
+        <version>${extension.dockerfile-maven.version}</version>
+      </extension>
+    </extensions>
+
     <pluginManagement>
       <plugins>
         <plugin>
@@ -189,7 +201,8 @@
         <plugin>
           <groupId>com.spotify</groupId>
           <artifactId>dockerfile-maven-plugin</artifactId>
-          <version>1.4.13</version>
+          <version>${plugin.dockerfile-maven.version}</version>
+          <extensions>true</extensions>
         </plugin>
       </plugins>
     </pluginManagement>

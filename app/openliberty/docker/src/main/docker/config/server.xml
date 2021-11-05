@@ -16,6 +16,7 @@
     protocolVersion="http/2"
   >
     <accessLogging
+      id="accessLogging"
     />
   </httpEndpoint>
 
@@ -58,7 +59,7 @@
     updateTrigger="mbean"
   />
   <webApplication
-    location="/apps/${app.filename}"
+    location="${app.filename}"
     contextRoot="${app.context.root}"
   />
 </server>

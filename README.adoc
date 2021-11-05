@@ -1,6 +1,7 @@
 = OpenLiberty Content Negotiation Example
 :icons: font
 :toc: macro
+:toclevels: 4
 
 https://github.com/bmarwell/openliberty-content-negotiation-example/actions/workflows/maven.yaml[image:https://github.com/bmarwell/openliberty-content-negotiation-example/actions/workflows/maven.yaml/badge.svg[Maven
 CI]]
@@ -8,19 +9,128 @@ https://opensource.org/licenses/Apache-2.0[image:https://img.shields.io/badge/Li
 https://renovatebot.com[image:https://img.shields.io/badge/renovate-enabled-brightgreen.svg[Renovate]]
 link:https://openliberty.io/[image:https://img.shields.io/badge/AppServer-Open%20Liberty-blue[AppServer]]
 
-This is a port of link:https://github.com/diceroll-dev/dice-parser[Brian's Dice Parser] using link:https://github.com/oktadev/quarkus-content-negotiation-example[Quarkus with Content negotiation example] to link:https://openliberty.io/[OpenLiberty], using a lot more CDI (just for the fun).
+This is a port of link:https://github.com/diceroll-dev/dice-parser[Brian‘s Dice Parser] using link:https://github.com/oktadev/quarkus-content-negotiation-example[Quarkus with Content negotiation example] to link:https://openliberty.io/[OpenLiberty], using a lot more CDI (just for the fun).
 
 This example runs only at Java 15, because IBM still has not published Java 16 or 17 images with OpenLiberty (as of 2021-11-04).
 
 toc::[]
 
-== Differences from Brian's API
+== Differences from Brian‘s API
 
 Just for the fun of it, and because JSON is derived from JavaScript, I did set the config option `PropertyNamingStrategy.LOWER_CASE_WITH_UNDERSCORES`.
 
 The output will have `under_scores` in field names instead of `lowerCamelCase` (as derived from Java getter methods).
 
 As already mentioned, most classes were converted to interfaces and CDI beans.
+
+== Using the API
+
+The calls are similar to Brian‘s API.
+
+=== Help API
+
+==== Curl user agent
+
+[source]
+----
+$ curl --url "https://api.diceroll.bmarwell.de/"
+Welcome to the Dice Parser!!
+
+Roll dice by making a request:
+    curl https://api.diceroll.bmarwell.de/roll?dice=2d6 -H "Accept: text/plain"
+
+Or get the result in JSON (the default):
+    curl https://api.diceroll.bmarwell.de/roll?dice=2d6 -H "Accept: application/json"
+----
+
+==== HTTPie user agent
+
+----
+$ curl  -H "User-Agent: HTTPie/1.0.0" --url "https://api.diceroll.bmarwell.de/"
+Welcome to the Dice Parser!!
+
+Roll dice by making a request:
+    http https://api.diceroll.bmarwell.de/roll dice==2d6 "Accept: text/plain"
+
+Or get the result in JSON:
+    http https://api.diceroll.bmarwell.de/roll dice==2d6 "Accept: application/json"
+----
+
+==== Generic User Agent (or none/unknown)
+
+----
+$ curl  -H "User-Agent: " --url "https://api.diceroll.bmarwell.de/"
+Welcome to the Dice Parser!!
+
+Roll dice by making a request:
+    GET https://api.diceroll.bmarwell.de/roll?dice=2d6
+    Accept: text/plain
+
+Or get the result in JSON:
+    GET https://api.diceroll.bmarwell.de/roll?dice=2d6
+    Accept: application/json
+----
+
+==== German Language
+
+----
+$ curl -H "accept-language: de" --url "https://api.diceroll.bmarwell.de/"
+Willkommen beim Würfelparser!!
+
+Würfeln Sie, indem Sie eine Anfrage stellen:
+curl https://api.diceroll.bmarwell.de/roll?dice=2d6 -H "Accept: text/plain"
+
+Oder rufen Sie das Ergebnis in JSON ab:
+curl https://api.diceroll.bmarwell.de/roll?dice=2d6 -H "Accept: application/json"
+----
+
+=== Dice roll API
+
+See link:https://github.com/diceroll-dev/dice-parser#supported-notation[Brian’s Docs] for all available options.
+
+==== Accept `text/plain` (or none specified):
+
+[source]
+----
+$ curl --url "https://api.diceroll.bmarwell.de/roll?dice=2d6"
+2d6 = 10
+--d6 = 6
+--d6 = 4
+----
+
+==== Accept `application/json`
+
+----
+$ curl -H "accept: application/json" --url "https://api.diceroll.bmarwell.de/roll?dice=2d6"
+
+{
+    "expression": {
+        "number_of_dice": 2,
+        "number_of_faces": 6
+    },
+    "results": [
+        {
+            "expression": {
+                "number_of_dice": 1,
+                "number_of_faces": 6
+            },
+            "results": [
+            ],
+            "value": 2
+        },
+        {
+            "expression": {
+                "number_of_dice": 1,
+                "number_of_faces": 6
+            },
+            "results": [
+            ],
+            "value": 2
+        }
+    ],
+    "value": 4
+}
+----
 
 == How to build
 
@@ -61,7 +171,7 @@ sdk env
 As well as
 
 * Using the `liberty-maven-plugin` for integration testing
-* Using link:https://github.com/spotify/dockerfile-maven[Spotify's dockerfile-maven-plugin] for building Docker images
+* Using link:https://github.com/spotify/dockerfile-maven[Spotify‘s dockerfile-maven-plugin] for building Docker images
 * Using a shared class cache with OpenJ9 for insane startup times!
 
 === Startup time

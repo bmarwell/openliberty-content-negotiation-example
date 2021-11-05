@@ -1,10 +1,11 @@
 FROM openliberty/open-liberty:kernel-slim-java15-openj9-ubi
 
-COPY --chown=1001:0 config/server.xml config/bootstrap.properties /config/
+COPY --chown=1001:0 config/jvm.options config/server.xml config/bootstrap.properties /config/
 
 RUN features.sh
 
 ARG ARTIFACT_NAME
-COPY --chown=1001:0 ${ARTIFACT_NAME} /apps/${ARTIFACT_NAME}
+COPY --chown=1001:0 ${ARTIFACT_NAME} /config/apps/${ARTIFACT_NAME}
 
+ENV OPENJ9_SCC=true
 RUN configure.sh
