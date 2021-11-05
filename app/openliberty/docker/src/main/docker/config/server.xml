@@ -18,6 +18,11 @@
     <accessLogging
       id="accessLogging"
     />
+    <compression
+      serverPreferredAlgorithm="deflate|gzip|x-gzip|zlib|identity|none"
+    >
+      <types>+application/*</types>
+    </compression>
   </httpEndpoint>
 
   <httpOptions
