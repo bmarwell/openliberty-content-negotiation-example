@@ -1,8 +1,7 @@
 package de.bmarwell.examples.openlibertycontentrenegotiation.rest.v1.resource;
 
-import static dev.diceroll.parser.Dice.detailedRoll;
+import static dev.diceroll.parser.Dice.roll;
 
-import dev.diceroll.parser.ResultTree;
 import java.io.Serial;
 import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
@@ -22,13 +21,13 @@ public class EvalResource implements Serializable {
   private static final long serialVersionUID = -4751317617404445262L;
 
   @GET
-  public ResultTree evalObject(@QueryParam("dice") String dice) {
-    return detailedRoll(dice);
+  public int evalObject(@QueryParam("dice") String dice) {
+    return roll(dice);
   }
 
   @POST
-  public ResultTree rollObjectPost(String dice) {
-    return detailedRoll(dice);
+  public int rollObjectPost(String dice) {
+    return roll(dice);
   }
 
 }
