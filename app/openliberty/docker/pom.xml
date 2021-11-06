@@ -86,6 +86,7 @@
             <configuration>
               <contextDirectory>${docker.context.directory}</contextDirectory>
               <repository>${project.groupId}/${project.artifactId}</repository>
+              <pullNewerImage>false</pullNewerImage>
               <tag>${project.version}</tag>
               <buildArgs>
                 <ARTIFACT_NAME>${app.filename}</ARTIFACT_NAME>

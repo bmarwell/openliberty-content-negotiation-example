@@ -4,7 +4,6 @@ import java.io.Serial;
 import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
@@ -46,49 +45,7 @@ public class ResourceBundleMessageProvider implements MessageProvider {
     }
   }
 
-  private static final class BundleLocaleKey {
-
-    private final String bundleName;
-    private final Locale locale;
-
-    private BundleLocaleKey(String bundleName, Locale locale) {
-      this.bundleName = bundleName;
-      this.locale = locale;
-    }
-
-    public String bundleName() {
-      return bundleName;
-    }
-
-    public Locale locale() {
-      return locale;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-      if (obj == this) {
-        return true;
-      }
-      if (obj == null || obj.getClass() != this.getClass()) {
-        return false;
-      }
-      var that = (BundleLocaleKey) obj;
-      return Objects.equals(this.bundleName, that.bundleName) &&
-          Objects.equals(this.locale, that.locale);
-    }
-
-    @Override
-    public int hashCode() {
-      return Objects.hash(bundleName, locale);
-    }
-
-    @Override
-    public String toString() {
-      return "BundleLocaleKey[" +
-          "bundleName=" + bundleName + ", " +
-          "locale=" + locale + ']';
-    }
-
+  private record BundleLocaleKey(String bundleName, Locale locale) {
     // .
   }
 }
