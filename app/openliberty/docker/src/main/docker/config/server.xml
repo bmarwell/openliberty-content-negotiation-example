@@ -19,7 +19,7 @@
       id="accessLogging"
     />
     <compression
-      serverPreferredAlgorithm="deflate|gzip|x-gzip|zlib|identity|none"
+      serverPreferredAlgorithm="gzip"
     >
       <types>+application/*</types>
     </compression>
