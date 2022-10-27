@@ -32,6 +32,16 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>default-compile</id>
+            <phase>none</phase>
+          </execution>
+        </executions>
+      </plugin>
 
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
@@ -74,24 +84,31 @@
       </plugin>
 
       <plugin>
-        <groupId>com.spotify</groupId>
-        <artifactId>dockerfile-maven-plugin</artifactId>
+        <groupId>org.eclipse.jkube</groupId>
+        <artifactId>kubernetes-maven-plugin</artifactId>
+        <configuration>
+          <build>
+            <tags>
+              <tag>latest</tag>
+              <tag>%v</tag>
+            </tags>
+          </build>
+          <verbose>true</verbose>
+        </configuration>
         <executions>
           <execution>
-            <id>docker-build</id>
+            <id>default-resource</id>
+            <goals>
+              <goal>resource</goal>
+            </goals>
+            <phase>generate-resources</phase>
+          </execution>
+          <execution>
+            <id>default-build</id>
             <goals>
               <goal>build</goal>
-              <goal>tag</goal>
             </goals>
-            <configuration>
-              <contextDirectory>${docker.context.directory}</contextDirectory>
-              <repository>${project.groupId}/${project.artifactId}</repository>
-              <pullNewerImage>false</pullNewerImage>
-              <tag>${project.version}</tag>
-              <buildArgs>
-                <ARTIFACT_NAME>${app.filename}</ARTIFACT_NAME>
-              </buildArgs>
-            </configuration>
+            <phase>package</phase>
           </execution>
         </executions>
       </plugin>
@@ -106,11 +123,10 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>com.spotify</groupId>
-            <artifactId>dockerfile-maven-plugin</artifactId>
+            <groupId>org.eclipse.jkube</groupId>
+            <artifactId>kubernetes-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>docker-push</id>
                 <goals>
                   <goal>push</goal>
                 </goals>

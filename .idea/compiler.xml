@@ -12,6 +12,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="olcr-app-ol-docker" target="17" />
       <module name="olcr-its-openliberty" target="17" />
       <module name="olcr-web-restv1" target="17" />
       <module name="openliberty-content-negotiation-example" target="1.5" />

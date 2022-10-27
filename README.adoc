@@ -154,7 +154,50 @@ sdk env
 
 [source,bash]
 ----
+# needed for podman beforehand:
+export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+systemctl enable --user --now podman.socket
+systemctl enable --user --now podman.service
+# actual build
 ./mvnw package -Pdockerize
+----
+
+Image will be built as `openlibertycontentrenegotiation/olcr-app-ol-docker:latest`
+
+=== Enable Open Liberty InstantOn
+
+This feature is powered by Eclipse OpenJ9 and Linux CRIU.
+
+Prerequisites:
+
+* podman
+* podman-docker
+* set-up UNIX-host as can be seen above
+* jq -- as we enabled JSON logging
+
+[source,bash]
+----
+# remove old dangling image
+docker rm olcr-checkpoint-container
+
+# build the InstantOn-Image
+podman run --name olcr-checkpoint-container --privileged --env WLP_CHECKPOINT=applications openlibertycontentrenegotiation/olcr-app-ol-docker:latest | grep -E '^{' | jq -s
+# now you should have a checkpointed container (check the logs)
+
+# to make it available, use:
+podman commit olcr-checkpoint-container oclr-instanton
+
+# this is now something you can start:
+podman run \
+  --rm \
+  --cap-add=CHECKPOINT_RESTORE \
+  --cap-add=NET_ADMIN \
+  --cap-add=SYS_PTRACE \
+  --security-opt seccomp=unconfined \
+  --security-opt systempaths=unconfined \
+  --security-opt apparmor=unconfined \
+  -p 9080:9080 \
+  oclr-instanton
 ----
 
 == What does this example show?
