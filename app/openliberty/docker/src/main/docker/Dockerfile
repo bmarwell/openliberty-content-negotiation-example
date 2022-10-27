@@ -1,4 +1,4 @@
-FROM openliberty:21.0.0.11-kernel-slim-java17-openj9
+FROM openliberty:22.0.0.10-kernel-slim-java17-openj9-ubi
 
 COPY --chown=1001:0 config/jvm.options config/server.xml config/bootstrap.properties /config/
 

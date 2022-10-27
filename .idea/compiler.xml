@@ -7,12 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="olcr-its-openliberty" />
-        <module name="olcr-web-restv1" />
         <module name="olcr-app-ol-docker" />
+        <module name="olcr-web-restv1" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="openliberty-content-negotiation-example" target="15" />
+      <module name="olcr-its-openliberty" target="17" />
+      <module name="olcr-web-restv1" target="17" />
+      <module name="openliberty-content-negotiation-example" target="1.5" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
