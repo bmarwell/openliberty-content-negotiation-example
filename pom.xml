@@ -28,7 +28,7 @@
     <dependency.json.bind-api.version>1.0</dependency.json.bind-api.version>
 
     <!-- 3rd party -->
-    <dependency.dicerollparser.version>0.1.0</dependency.dicerollparser.version>
+    <dependency.dicerollparser.version>0.2.0</dependency.dicerollparser.version>
 
     <!-- unit testing -->
     <dependency.junit-jupiter.version>5.8.1</dependency.junit-jupiter.version>
