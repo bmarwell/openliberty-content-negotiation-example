@@ -1,12 +1,12 @@
 package de.bmarwell.examples.openlibertycontentrenegotiation.rest.v1;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.enterprise.inject.spi.InjectionPoint;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.core.HttpHeaders;
 import java.io.Serial;
 import java.io.Serializable;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.spi.InjectionPoint;
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.core.HttpHeaders;
 
 @RequestScoped
 public class AgentProducer implements Serializable {

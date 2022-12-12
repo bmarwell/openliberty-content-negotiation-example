@@ -2,10 +2,10 @@ package de.bmarwell.examples.openlibertycontentrenegotiation.rest.v1;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+import jakarta.enterprise.util.Nonbinding;
+import jakarta.inject.Qualifier;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
-import javax.enterprise.util.Nonbinding;
-import javax.inject.Qualifier;
 
 @Qualifier
 @Retention(RUNTIME)

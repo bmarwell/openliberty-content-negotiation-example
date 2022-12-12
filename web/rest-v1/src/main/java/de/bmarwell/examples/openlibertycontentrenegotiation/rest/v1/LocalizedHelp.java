@@ -1,8 +1,8 @@
 package de.bmarwell.examples.openlibertycontentrenegotiation.rest.v1;
 
+import jakarta.ws.rs.core.UriInfo;
 import java.io.Serializable;
 import java.util.Locale;
-import javax.ws.rs.core.UriInfo;
 
 /**
  * Returns a help String for the given URI and locale.
