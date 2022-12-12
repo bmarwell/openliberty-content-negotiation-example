@@ -12,19 +12,18 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class JsonbConfigProvider implements ContextResolver<Jsonb>, Serializable {
 
-  @Serial
-  private static final long serialVersionUID = -2635771645761444722L;
+    @Serial
+    private static final long serialVersionUID = -2635771645761444722L;
 
-  @Override
-  public Jsonb getContext(Class<?> type) {
-    JsonbConfig config = getJsonbConfig();
-    return JsonbBuilder.newBuilder().withConfig(config).build();
-  }
+    @Override
+    public Jsonb getContext(Class<?> type) {
+        JsonbConfig config = getJsonbConfig();
+        return JsonbBuilder.newBuilder().withConfig(config).build();
+    }
 
-  private JsonbConfig getJsonbConfig() {
-    return new JsonbConfig()
-        .withPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE_WITH_UNDERSCORES)
-        .setProperty(JsonbConfig.FORMATTING, true)
-        ;
-  }
+    private JsonbConfig getJsonbConfig() {
+        return new JsonbConfig()
+                .withPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE_WITH_UNDERSCORES)
+                .setProperty(JsonbConfig.FORMATTING, true);
+    }
 }

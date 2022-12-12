@@ -13,7 +13,7 @@
 
   <artifactId>olcr-its-openliberty</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <name>oclr :: ITs :: OpenLiberty</name>
+  <name>olcr :: ITs :: OpenLiberty</name>
 
   <properties>
     <liberty.var.default.http.port>9080</liberty.var.default.http.port>

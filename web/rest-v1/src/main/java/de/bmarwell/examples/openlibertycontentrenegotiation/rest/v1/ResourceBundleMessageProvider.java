@@ -18,34 +18,33 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class ResourceBundleMessageProvider implements MessageProvider {
 
-  @Serial
-  private static final long serialVersionUID = 5376658046230007599L;
+    @Serial
+    private static final long serialVersionUID = 5376658046230007599L;
 
-  private final Map<BundleLocaleKey, ResourceBundle> cache = new ConcurrentHashMap<>();
+    private final Map<BundleLocaleKey, ResourceBundle> cache = new ConcurrentHashMap<>();
 
-  @Override
-  public String getString(String bundleName, Locale locale, String helpKey) {
-    BundleLocaleKey cacheKey = new BundleLocaleKey(bundleName, locale);
+    @Override
+    public String getString(String bundleName, Locale locale, String helpKey) {
+        BundleLocaleKey cacheKey = new BundleLocaleKey(bundleName, locale);
 
-    return Optional.ofNullable(cache.get(cacheKey))
-        .or(() -> createBundle(cacheKey))
-        .map(bundle -> bundle.getString(helpKey))
-        .orElse("");
-  }
-
-  private Optional<ResourceBundle> createBundle(BundleLocaleKey cacheKey) {
-    try {
-      final ResourceBundle resourceBundle
-          = ResourceBundle.getBundle(cacheKey.bundleName(), cacheKey.locale());
-      cache.put(cacheKey, resourceBundle);
-
-      return Optional.ofNullable(resourceBundle);
-    } catch (MissingResourceException missingResourceException) {
-      return Optional.empty();
+        return Optional.ofNullable(cache.get(cacheKey))
+                .or(() -> createBundle(cacheKey))
+                .map(bundle -> bundle.getString(helpKey))
+                .orElse("");
     }
-  }
 
-  private record BundleLocaleKey(String bundleName, Locale locale) {
-    // .
-  }
+    private Optional<ResourceBundle> createBundle(BundleLocaleKey cacheKey) {
+        try {
+            final ResourceBundle resourceBundle = ResourceBundle.getBundle(cacheKey.bundleName(), cacheKey.locale());
+            cache.put(cacheKey, resourceBundle);
+
+            return Optional.ofNullable(resourceBundle);
+        } catch (MissingResourceException missingResourceException) {
+            return Optional.empty();
+        }
+    }
+
+    private record BundleLocaleKey(String bundleName, Locale locale) {
+        // .
+    }
 }

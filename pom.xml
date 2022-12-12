@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-    
+
   <groupId>de.bmarwell.examples.openlibertycontentrenegotiation</groupId>
   <artifactId>olcr-root</artifactId>
   <packaging>pom</packaging>
   <version>1.0.0-SNAPSHOT</version>
   <name>olcr :: root</name>
-    
+
   <url>https://github.com/bmarwell/openliberty-content-negotiation-example</url>
 
   <properties>
@@ -16,6 +16,8 @@
     <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <plugin.forbiddenapis.failOnViolation>true</plugin.forbiddenapis.failOnViolation>
+    <!--suppress UnresolvedMavenProperty -->
+    <reactor.root.dir>${maven.multiModuleProjectDirectory}</reactor.root.dir>
 
     <!--suppress CheckTagEmptyBody -->
     <surefire.argLine></surefire.argLine>
@@ -36,6 +38,10 @@
 
     <!-- plugin versions -->
     <kubernetes-maven-plugin.version>1.10.1</kubernetes-maven-plugin.version>
+    <plugin.spotless.version>2.28.0</plugin.spotless.version>
+
+    <!-- plugin settings -->
+    <plugin.spotless.eclipse.file>${reactor.root.dir}/eclipse-formatter.xml</plugin.spotless.eclipse.file>
   </properties>
 
   <dependencyManagement>
@@ -194,6 +200,40 @@
           <artifactId>kubernetes-maven-plugin</artifactId>
           <version>${kubernetes-maven-plugin.version}</version>
         </plugin>
+        <plugin>
+          <groupId>com.diffplug.spotless</groupId>
+          <artifactId>spotless-maven-plugin</artifactId>
+          <version>${plugin.spotless.version}</version>
+          <configuration>
+            <formats>
+              <format>
+                <includes>
+                  <include>*.adoc</include>
+                  <include>*.md</include>
+                  <include>*.xml</include>
+                  <include>.gitignore</include>
+                </includes>
+                <!-- define the steps to apply to those files -->
+                <trimTrailingWhitespace/>
+                <endWithNewline/>
+                <indent>
+                  <tabs>false</tabs>
+                  <spaces>true</spaces>
+                  <spacesPerTab>2</spacesPerTab>
+                </indent>
+              </format>
+            </formats>
+
+            <java>
+              <importOrder/>
+              <removeUnusedImports/>
+
+              <palantirJavaFormat>
+                <version>2.28.0</version>
+              </palantirJavaFormat>
+            </java>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
 
@@ -214,6 +254,20 @@
               <goal>integration-test</goal>
               <goal>verify</goal>
             </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <inherited>true</inherited>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <phase>validate</phase>
           </execution>
         </executions>
       </plugin>

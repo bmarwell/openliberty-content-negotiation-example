@@ -18,21 +18,23 @@ import javax.ws.rs.ext.Provider;
 @Produces(MediaType.TEXT_PLAIN)
 public class TextDiceTreeMessageBodyWriter implements MessageBodyWriter<ResultTree> {
 
-  @Override
-  public boolean isWriteable(Class<?> type, Type genericType, Annotation[] annotations,
-      MediaType mediaType) {
-    return type == ResultTree.class;
-  }
+    @Override
+    public boolean isWriteable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
+        return type == ResultTree.class;
+    }
 
-  @Override
-  public void writeTo(ResultTree resultTree,
-      Class<?> type, Type genericType,
-      Annotation[] annotations,
-      MediaType mediaType,
-      MultivaluedMap<String, Object> httpHeaders,
-      OutputStream entityStream) throws IOException, WebApplicationException {
+    @Override
+    public void writeTo(
+            ResultTree resultTree,
+            Class<?> type,
+            Type genericType,
+            Annotation[] annotations,
+            MediaType mediaType,
+            MultivaluedMap<String, Object> httpHeaders,
+            OutputStream entityStream)
+            throws IOException, WebApplicationException {
 
-    String result = Dice.debug(resultTree);
-    entityStream.write(result.getBytes(StandardCharsets.UTF_8));
-  }
+        String result = Dice.debug(resultTree);
+        entityStream.write(result.getBytes(StandardCharsets.UTF_8));
+    }
 }
