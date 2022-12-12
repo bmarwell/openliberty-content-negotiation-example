@@ -1,12 +1,12 @@
 package de.bmarwell.examples.openlibertycontentrenegotiation.rest.v1;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.core.UriInfo;
 import java.io.Serial;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Map;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.ws.rs.core.UriInfo;
 
 /**
  * Returns a localized and formatted help string by using resource bundles.

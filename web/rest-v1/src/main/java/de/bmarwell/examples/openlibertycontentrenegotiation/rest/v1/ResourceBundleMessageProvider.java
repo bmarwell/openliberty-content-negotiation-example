@@ -1,5 +1,6 @@
 package de.bmarwell.examples.openlibertycontentrenegotiation.rest.v1;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import java.io.Serial;
 import java.util.Locale;
 import java.util.Map;
@@ -7,7 +8,6 @@ import java.util.MissingResourceException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
-import javax.enterprise.context.ApplicationScoped;
 
 /**
  * Provides unformatted messages using resource bundles.

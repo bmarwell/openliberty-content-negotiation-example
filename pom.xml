@@ -25,16 +25,19 @@
     <failsafe.argLine></failsafe.argLine>
 
     <!-- JavaEE and MicroProfile -->
-    <dependency.jaxrs.version>2.1.6</dependency.jaxrs.version>
-    <dependency.cdi.version>2.0.2</dependency.cdi.version>
-    <dependency.json.bind-api.version>1.0</dependency.json.bind-api.version>
+    <dependency.jakarta.servlet-api.version>5.0.0</dependency.jakarta.servlet-api.version>
+    <dependency.jaxrs.version>3.0.0</dependency.jaxrs.version>
+    <dependency.cdi.version>3.0.1</dependency.cdi.version>
+    <dependency.json.bind-api.version>2.0.0</dependency.json.bind-api.version>
 
     <!-- 3rd party -->
     <dependency.dicerollparser.version>0.2.0</dependency.dicerollparser.version>
 
-    <!-- unit testing -->
+    <!-- test dependencies -->
     <dependency.junit-jupiter.version>5.9.1</dependency.junit-jupiter.version>
     <dependency.assertj.version>3.23.1</dependency.assertj.version>
+    <dependency.apache.cxf-rt-rs-client.version>4.0.0-SNAPSHOT</dependency.apache.cxf-rt-rs-client.version>
+    <dependency.johnzon-jsonb.version>1.2.19</dependency.johnzon-jsonb.version>
 
     <!-- plugin versions -->
     <kubernetes-maven-plugin.version>1.10.1</kubernetes-maven-plugin.version>
@@ -64,13 +67,13 @@
       <dependency>
         <groupId>jakarta.servlet</groupId>
         <artifactId>jakarta.servlet-api</artifactId>
-        <version>4.0.4</version>
+        <version>${dependency.jakarta.servlet-api.version}</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
-        <groupId>javax.json.bind</groupId>
-        <artifactId>javax.json.bind-api</artifactId>
+        <groupId>jakarta.json.bind</groupId>
+        <artifactId>jakarta.json.bind-api</artifactId>
         <version>${dependency.json.bind-api.version}</version>
         <scope>provided</scope>
       </dependency>
@@ -82,7 +85,7 @@
         <version>${dependency.dicerollparser.version}</version>
       </dependency>
 
-      <!-- unit testing -->
+      <!-- test dependencies -->
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
@@ -95,6 +98,53 @@
         <groupId>org.assertj</groupId>
         <artifactId>assertj-core</artifactId>
         <version>${dependency.assertj.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-rs-client</artifactId>
+        <version>${dependency.apache.cxf-rt-rs-client.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.johnzon</groupId>
+        <artifactId>johnzon-core</artifactId>
+        <version>${dependency.johnzon-jsonb.version}</version>
+        <classifier>jakarta</classifier>
+        <exclusions>
+          <exclusion>
+            <groupId>*</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+        </exclusions>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.johnzon</groupId>
+        <artifactId>johnzon-jsonb</artifactId>
+        <version>${dependency.johnzon-jsonb.version}</version>
+        <classifier>jakarta</classifier>
+        <exclusions>
+          <exclusion>
+            <groupId>*</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+        </exclusions>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.johnzon</groupId>
+        <artifactId>johnzon-mapper</artifactId>
+        <version>${dependency.johnzon-jsonb.version}</version>
+        <classifier>jakarta</classifier>
+        <exclusions>
+          <exclusion>
+            <groupId>*</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+        </exclusions>
         <scope>test</scope>
       </dependency>
 
@@ -303,6 +353,21 @@
     <module>web/rest-v1</module>
     <module>integration-tests/openliberty</module>
   </modules>
+
+  <!-- required for CXF v4.0.0-SNAPSHOT for jakarta support -->
+  <repositories>
+    <repository>
+      <id>apache.snapshots</id>
+      <url>https://repository.apache.org/snapshots/</url>
+      <name>Apache Snapshot Repo</name>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </repository>
+  </repositories>
 
   <profiles>
     <profile>

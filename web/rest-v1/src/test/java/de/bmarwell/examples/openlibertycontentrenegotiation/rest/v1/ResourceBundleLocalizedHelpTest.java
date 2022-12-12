@@ -3,9 +3,9 @@ package de.bmarwell.examples.openlibertycontentrenegotiation.rest.v1;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import jakarta.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.Locale;
-import javax.ws.rs.core.UriInfo;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
