@@ -28,7 +28,7 @@
     <dependency.jakarta.servlet-api.version>5.0.0</dependency.jakarta.servlet-api.version>
     <dependency.jaxrs.version>3.0.0</dependency.jaxrs.version>
     <dependency.cdi.version>3.0.1</dependency.cdi.version>
-    <dependency.json.bind-api.version>2.0.0</dependency.json.bind-api.version>
+    <dependency.json.bind-api.version>3.0.0</dependency.json.bind-api.version>
 
     <!-- 3rd party -->
     <dependency.dicerollparser.version>0.2.0</dependency.dicerollparser.version>
