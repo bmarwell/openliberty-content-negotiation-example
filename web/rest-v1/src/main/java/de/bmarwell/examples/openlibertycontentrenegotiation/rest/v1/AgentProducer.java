@@ -11,24 +11,23 @@ import javax.ws.rs.core.HttpHeaders;
 @RequestScoped
 public class AgentProducer implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = -7936816035015642025L;
+    @Serial
+    private static final long serialVersionUID = -7936816035015642025L;
 
-  @Produces
-  @HttpHeader
-  public String header(HttpServletRequest req, InjectionPoint ip) {
-    HttpHeader annotation = ip.getAnnotated().getAnnotation(HttpHeader.class);
+    @Produces
+    @HttpHeader
+    public String header(HttpServletRequest req, InjectionPoint ip) {
+        HttpHeader annotation = ip.getAnnotated().getAnnotation(HttpHeader.class);
 
-    if (annotation.value().isEmpty()) {
-      return "";
+        if (annotation.value().isEmpty()) {
+            return "";
+        }
+
+        return req.getHeader(annotation.value());
     }
 
-    return req.getHeader(annotation.value());
-  }
-
-  @Produces
-  public Agent getAgent(@HttpHeader(HttpHeaders.USER_AGENT) String userAgent) {
-    return Agents.parse(userAgent);
-  }
-
+    @Produces
+    public Agent getAgent(@HttpHeader(HttpHeaders.USER_AGENT) String userAgent) {
+        return Agents.parse(userAgent);
+    }
 }

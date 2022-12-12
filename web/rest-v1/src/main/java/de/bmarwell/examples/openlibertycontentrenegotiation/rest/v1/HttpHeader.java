@@ -12,9 +12,9 @@ import javax.inject.Qualifier;
 @Documented
 public @interface HttpHeader {
 
-  /**
-   * Header name.
-   */
-  @Nonbinding
-  String value() default "";
+    /**
+     * Header name.
+     */
+    @Nonbinding
+    String value() default "";
 }

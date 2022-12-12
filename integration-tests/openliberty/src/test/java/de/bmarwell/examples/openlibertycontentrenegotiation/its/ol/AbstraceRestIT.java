@@ -10,12 +10,12 @@ import org.junit.jupiter.api.DisplayNameGenerator;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public abstract class AbstraceRestIT {
 
-  final Client client = ClientBuilder.newClient()
-      .register(new JsonbJaxrsProvider<>());
+    final Client client = ClientBuilder.newClient().register(new JsonbJaxrsProvider<>());
 
-  protected URI getBaseUri() {
-    return URI.create(
-        "http://localhost:" + System.getProperty("http.port") + "/" + System.getProperty(
-            "app.context.root") + "/");
-  }
+    protected URI getBaseUri() {
+        final String httpPort = System.getProperty("http.port");
+        final String appContextRoot = System.getProperty("app.context.root");
+
+        return URI.create("http://localhost:%s/%s/".formatted(httpPort, appContextRoot));
+    }
 }

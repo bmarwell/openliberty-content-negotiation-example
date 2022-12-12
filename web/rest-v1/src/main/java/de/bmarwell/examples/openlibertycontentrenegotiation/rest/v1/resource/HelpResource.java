@@ -16,25 +16,21 @@ import javax.ws.rs.core.UriInfo;
 @ApplicationScoped
 public class HelpResource {
 
-  @Inject
-  private LocalizedHelp localizedHelp;
+    @Inject
+    private LocalizedHelp localizedHelp;
 
-  public HelpResource() {
-    // cdi
-  }
+    public HelpResource() {
+        // cdi
+    }
 
-  @GET
-  @Produces(MediaType.TEXT_PLAIN)
-  public String help(
-      @Context Request request,
-      @Context UriInfo uriInfo) {
-    return localizedHelp.getHelp(
-        uriInfo,
-        request.selectVariant(LanguageFilter.VARIANTS).getLanguage());
-  }
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String help(@Context Request request, @Context UriInfo uriInfo) {
+        return localizedHelp.getHelp(
+                uriInfo, request.selectVariant(LanguageFilter.VARIANTS).getLanguage());
+    }
 
-  public LocalizedHelp getLocalizedHelp() {
-    return localizedHelp;
-  }
-
+    public LocalizedHelp getLocalizedHelp() {
+        return localizedHelp;
+    }
 }

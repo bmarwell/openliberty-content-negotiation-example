@@ -19,50 +19,48 @@ import javax.ws.rs.core.UriInfo;
 @RequestScoped
 public class ResourceBundleLocalizedHelp implements LocalizedHelp {
 
-  @Serial
-  private static final long serialVersionUID = -1702395883407930723L;
+    @Serial
+    private static final long serialVersionUID = -1702395883407930723L;
 
-  @Inject
-  private Agent userAgent;
+    @Inject
+    private Agent userAgent;
 
-  @Inject
-  private MessageProvider messageProvider;
+    @Inject
+    private MessageProvider messageProvider;
 
-  private static final Map<Agent, String> AGENT_HELP_MAP = Map.of(
-      Agents.CURL, "help.curl",
-      Agents.HTTPIE, "help.httpie",
-      Agents.GENERIC, "help.generic"
-  );
+    private static final Map<Agent, String> AGENT_HELP_MAP = Map.of(
+            Agents.CURL, "help.curl",
+            Agents.HTTPIE, "help.httpie",
+            Agents.GENERIC, "help.generic");
 
-  @Override
-  public String getHelp(UriInfo uriInfo, Locale locale) {
+    @Override
+    public String getHelp(UriInfo uriInfo, Locale locale) {
 
-    String url = uriInfo.getBaseUri().resolve("/").toString();
+        String url = uriInfo.getBaseUri().resolve("/").toString();
 
-    // look up the help key
-    String helpKey = AGENT_HELP_MAP.getOrDefault(userAgent, "help.generic");
+        // look up the help key
+        String helpKey = AGENT_HELP_MAP.getOrDefault(userAgent, "help.generic");
 
-    // Resource Bundle lookup/formatting
-    final String messageString = messageProvider.getString("messages", locale, helpKey);
-    MessageFormat formatter = new MessageFormat(messageString, locale);
+        // Resource Bundle lookup/formatting
+        final String messageString = messageProvider.getString("messages", locale, helpKey);
+        MessageFormat formatter = new MessageFormat(messageString, locale);
 
-    return formatter.format(new Object[]{url});
-  }
+        return formatter.format(new Object[] {url});
+    }
 
-  public Agent getUserAgent() {
-    return userAgent;
-  }
+    public Agent getUserAgent() {
+        return userAgent;
+    }
 
-  public void setUserAgent(Agent userAgent) {
-    this.userAgent = userAgent;
-  }
+    public void setUserAgent(Agent userAgent) {
+        this.userAgent = userAgent;
+    }
 
-  public MessageProvider getMessageProvider() {
-    return messageProvider;
-  }
+    public MessageProvider getMessageProvider() {
+        return messageProvider;
+    }
 
-  public void setMessageProvider(
-      MessageProvider messageProvider) {
-    this.messageProvider = messageProvider;
-  }
+    public void setMessageProvider(MessageProvider messageProvider) {
+        this.messageProvider = messageProvider;
+    }
 }

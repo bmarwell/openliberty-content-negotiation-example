@@ -17,17 +17,16 @@ import javax.ws.rs.core.MediaType;
 @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
 public class EvalResource implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = -4751317617404445262L;
+    @Serial
+    private static final long serialVersionUID = -4751317617404445262L;
 
-  @GET
-  public int evalObject(@QueryParam("dice") String dice) {
-    return roll(dice);
-  }
+    @GET
+    public int evalObject(@QueryParam("dice") String dice) {
+        return roll(dice);
+    }
 
-  @POST
-  public int rollObjectPost(String dice) {
-    return roll(dice);
-  }
-
+    @POST
+    public int rollObjectPost(String dice) {
+        return roll(dice);
+    }
 }

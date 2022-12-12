@@ -8,5 +8,5 @@ import java.util.Locale;
  */
 public interface MessageProvider extends Serializable {
 
-  String getString(String bundleName, Locale locale, String helpKey);
+    String getString(String bundleName, Locale locale, String helpKey);
 }

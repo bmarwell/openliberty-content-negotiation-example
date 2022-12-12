@@ -18,17 +18,16 @@ import javax.ws.rs.core.MediaType;
 @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
 public class DiceResource implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 8457184509620558191L;
+    @Serial
+    private static final long serialVersionUID = 8457184509620558191L;
 
-  @GET
-  public ResultTree rollObject(@QueryParam("dice") String dice) {
-    return detailedRoll(dice);
-  }
+    @GET
+    public ResultTree rollObject(@QueryParam("dice") String dice) {
+        return detailedRoll(dice);
+    }
 
-  @POST
-  public ResultTree rollObjectPost(String dice) {
-    return detailedRoll(dice);
-  }
-
+    @POST
+    public ResultTree rollObjectPost(String dice) {
+        return detailedRoll(dice);
+    }
 }

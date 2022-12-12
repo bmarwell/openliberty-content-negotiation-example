@@ -11,36 +11,35 @@ import java.util.regex.Pattern;
  * </a>
  */
 public enum Agents implements Agent {
+    GENERIC("generic"),
 
-  GENERIC("generic"),
+    CURL("curl"),
 
-  CURL("curl"),
+    HTTPIE("HTTPie");
 
-  HTTPIE("HTTPie");
+    private final String agentName;
+    private static final Pattern TOOL_REGEX = Pattern.compile("([^\\/]*)\\/([^ ]*).*"); // .
 
-  final private String agentName;
-  final private static Pattern TOOL_REGEX = Pattern.compile("([^\\/]*)\\/([^ ]*).*"); // .
-
-  Agents(String agentName) {
-    this.agentName = agentName;
-  }
-
-  @Override
-  public String getAgentName() {
-    return agentName;
-  }
-
-  public static Agents parse(String userAgent) {
-    if (userAgent == null) {
-      return GENERIC;
+    Agents(String agentName) {
+        this.agentName = agentName;
     }
-    
-    Matcher matcher = TOOL_REGEX.matcher(userAgent);
-    String name = (matcher.matches()) ? matcher.group(1) : null;
 
-    return Arrays.stream(Agents.values())
-        .filter(agent -> agent.agentName.equals(name))
-        .findFirst()
-        .orElse(GENERIC);
-  }
+    @Override
+    public String getAgentName() {
+        return agentName;
+    }
+
+    public static Agents parse(String userAgent) {
+        if (userAgent == null) {
+            return GENERIC;
+        }
+
+        Matcher matcher = TOOL_REGEX.matcher(userAgent);
+        String name = (matcher.matches()) ? matcher.group(1) : null;
+
+        return Arrays.stream(Agents.values())
+                .filter(agent -> agent.agentName.equals(name))
+                .findFirst()
+                .orElse(GENERIC);
+    }
 }
