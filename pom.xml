@@ -31,7 +31,7 @@
     <dependency.dicerollparser.version>0.2.0</dependency.dicerollparser.version>
 
     <!-- unit testing -->
-    <dependency.junit-jupiter.version>5.8.1</dependency.junit-jupiter.version>
+    <dependency.junit-jupiter.version>5.9.1</dependency.junit-jupiter.version>
     <dependency.assertj.version>3.23.1</dependency.assertj.version>
 
     <!-- plugin versions -->
