@@ -204,18 +204,27 @@ podman run \
 
 === OpenLiberty features
 
-* Jax-RS 2.1, CDI 2.0 on OpenLiberty
+* Resful WebServices 3.0, CDI 3.0, JSON-B(inding) 2.0 on OpenLiberty
 * Some OpenLiberty features, like
 ** TLS1.3 over http/2
 ** disabling CDI implicit bean archives
-** skipping META-INF processing and
+** Preferred server compression
+** Modified cookie length
+** skipping META-INF processing
+** A bit of hardening (remove server header, disabled welcome page)
+** JSON logging for the docker container.
 ** the easiness of using features
 
 As well as
 
 * Using the `liberty-maven-plugin` for integration testing
-* Using link:https://github.com/spotify/dockerfile-maven[Spotify‘s dockerfile-maven-plugin] for building Docker images
+* Using link:https://github.com/eclipse/jkube/tree/master/kubernetes-maven-plugin[kubernetes-maven-plugin] for building Docker images
 * Using a shared class cache with OpenJ9 for insane startup times!
+* JVM options like:
+** Insanely low memory (64M to 128M max)
+** Less idle CPU by using https://www.eclipse.org/openj9/docs/xxidletuninggconidle/[`-XX:+IdleTuningGcOnIdle`].
+** Reduce startup time by delaying class verification until needed (https://www.eclipse.org/openj9/docs/xxclassrelationshipverifier/[`-XX:+ClassRelationshipVerifier`]).
+** Tune for virtualized environments (https://www.eclipse.org/openj9/docs/xtunevirtualized/[`-Xtune:virtualized`]).
 
 === Startup time
 

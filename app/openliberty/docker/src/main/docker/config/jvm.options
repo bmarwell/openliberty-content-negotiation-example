@@ -7,4 +7,4 @@
 # use less CPU for cloud hosting
 -XX:+IdleTuningGcOnIdle
 -XX:+ClassRelationshipVerifier
--Xtune:virtualize
+-Xtune:virtualized
