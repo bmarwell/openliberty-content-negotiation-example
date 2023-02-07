@@ -36,7 +36,7 @@
     <!-- test dependencies -->
     <dependency.junit-jupiter.version>5.9.1</dependency.junit-jupiter.version>
     <dependency.assertj.version>3.23.1</dependency.assertj.version>
-    <dependency.apache.cxf-rt-rs-client.version>4.0.0-SNAPSHOT</dependency.apache.cxf-rt-rs-client.version>
+    <dependency.apache.cxf-rt-rs-client.version>4.0.0</dependency.apache.cxf-rt-rs-client.version>
     <dependency.johnzon-jsonb.version>1.2.19</dependency.johnzon-jsonb.version>
 
     <!-- plugin versions -->
