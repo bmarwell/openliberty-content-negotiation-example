@@ -71,7 +71,7 @@
           <runtimeArtifact>
             <groupId>io.openliberty</groupId>
             <artifactId>openliberty-kernel</artifactId>
-            <version>22.0.0.12</version>
+            <version>22.0.0.13</version>
             <type>zip</type>
           </runtimeArtifact>
           <serverName>diceroll</serverName>
