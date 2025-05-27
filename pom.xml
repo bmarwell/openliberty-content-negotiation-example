@@ -41,7 +41,7 @@
 
     <!-- plugin versions -->
     <kubernetes-maven-plugin.version>1.18.1</kubernetes-maven-plugin.version>
-    <plugin.spotless.version>2.44.4</plugin.spotless.version>
+    <plugin.spotless.version>2.44.5</plugin.spotless.version>
 
     <!-- plugin settings -->
     <plugin.spotless.eclipse.file>${reactor.root.dir}/eclipse-formatter.xml</plugin.spotless.eclipse.file>
